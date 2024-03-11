@@ -1,0 +1,7 @@
+@media (max-width: 320px) {
+  .paper {
+    width: 250px !important;
+    padding-top: 12px !important;
+    margin-top: 0px !important;
+  }
+}

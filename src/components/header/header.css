@@ -1,0 +1,21 @@
+@media (max-width: 320px) {
+  .appbar a {
+    font-size: 0.8rem !important;
+  }
+  .appbar p {
+    font-size: 0.8rem !important;
+    margin-right: -2.6rem !important;
+  }
+  .appbar img {
+    display: none !important;
+  }
+  .appbar .icon-menu {
+    margin-left: -0.5rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .appbar a {
+    display: none !important;
+  }
+}
