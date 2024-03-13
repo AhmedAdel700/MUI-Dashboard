@@ -5,6 +5,7 @@ import Create from './pages/create/Create';
 import Profile from './pages/profile/Profile';
 import Settings from './pages/settings/Settings';
 import Logout from './pages/logout/Logout';
+import PageNotFound from './pages/pageNotFound/PageNotFound';
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
       <Route path='/profile' element={<Profile />} />
       <Route path='/settings' element={<Settings />} />
       <Route path='/logout' element={<Logout />} />
+      <Route path='*' element={<PageNotFound />} />
     </Route>
   ))
 

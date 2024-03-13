@@ -61,7 +61,7 @@ export default function Header({ mode, currentMode }) {
             <IconButton
               onClick={toggleDrawer}
               className='icon-menu'
-              sx={{ display: { sm: "none" }, justifyContent: "space-between", zIndex: "10", position: "relative" }}>
+              sx={{ display: { sm: "none" }, justifyContent: "space-between" }}>
               <MenuIcon sx={{ fontSize: "2rem" }} />
             </IconButton>
           </Box>
@@ -73,34 +73,38 @@ export default function Header({ mode, currentMode }) {
         </Toolbar>
       </AppBar >
 
-      <Drawer
-        sx={{
-          display: { xs: showDrawer ? "block" : "none", sm: "block" },
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+      <Box component="nav">
+        <Drawer
+          sx={{
+            display: { xs: showDrawer ? "block" : "none", sm: "block" },
             width: drawerWidth,
-            boxSizing: 'border-box',
-            color: theme.palette.cyanColor.main
-          },
-          zIndex: "8",
-          position: "relative",
-        }}
-        variant="permanent"
-        anchor="left"
-      >
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+              color: theme.palette.cyanColor.main
+            },
+          }}
+          variant={showDrawer ? "temporary" : "permanent"}
+          anchor="left"
+          open={true}
+          onClose={() => {
+            toggleDrawer()
+          }}
+        >
 
-        <List>
-          <ListItem sx={{ display: "flex", justifyContent: "center", mb: "10px", mt: "5px" }}
-            disablePadding>
-            <IconButton onClick={() => mode()} color="inherit">
-              {currentMode ? <Brightness7Icon sx={{ color: "blue" }} /> : <Brightness4Icon sx={{ color: "orange" }} />}
-            </IconButton>
-          </ListItem>
-          <Divider />
-          {myList}
-        </List>
-      </Drawer>
+          <List>
+            <ListItem sx={{ display: "flex", justifyContent: "center", mb: "10px", mt: "5px" }}
+              disablePadding>
+              <IconButton onClick={() => mode()} color="inherit">
+                {currentMode ? <Brightness7Icon sx={{ color: "blue" }} /> : <Brightness4Icon sx={{ color: "orange" }} />}
+              </IconButton>
+            </ListItem>
+            <Divider />
+            {myList}
+          </List>
+        </Drawer>
+      </Box>
 
     </>
   )

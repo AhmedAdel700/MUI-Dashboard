@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, InputAdornment, TextField, styled } from "@mui/material";
 import { purple } from "@mui/material/colors";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useNavigate } from 'react-router-dom';
 import './create.css'
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -18,12 +19,20 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 export default function Create() {
 
+  const [title, setTitle] = useState("")
+  const [price, setPrice] = useState(0)
+  const navigate = useNavigate()
+
   return (
     <Box sx={{ width: { xs: "90%", sm: "380px" } }} component="form">
       <TextField
+        onChange={(e) => {
+          setTitle(e.target.value)
+        }}
         label="Transaction Title"
         fullWidth
-        sx={{ mt: { xs: 0, sm: 1 }, display: "block", mt: { xs: "0", sm: "22px" } }}
+        sx={{ display: "block", mt: { xs: "0", sm: "22px" } }}
+        autoComplete="off"
         InputProps={{
           startAdornment: <InputAdornment position="start">&#128073;</InputAdornment>,
         }}
@@ -31,16 +40,34 @@ export default function Create() {
       />
 
       <TextField
-        label="Transaction Title"
+        onChange={(e) => {
+          setPrice(Number(e.target.value))
+        }}
+        label="Amount"
         id="filled-start-adornment"
         fullWidth
-        sx={{ mt: { xs: 0, sm: 1 }, display: "block", mt: { xs: "22px" } }}
+        sx={{ display: "block", mt: { xs: "22px" } }}
+        autoComplete="off"
         InputProps={{
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
         variant="filled"
       />
-      <ColorButton sx={{ mt: "20px" }} variant="contained">Submit <ChevronRightIcon /> </ColorButton>
-    </Box>
+      <ColorButton
+        onClick={() => {
+          if (title && price) {
+            fetch("http://localhost:3100/myData", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'applications/json'
+              },
+              body: JSON.stringify({ title, price })
+            })
+              .then(() => navigate("/"))
+          }
+        }}
+        sx={{ mt: "20px" }} variant="contained">Submit <ChevronRightIcon />
+      </ColorButton>
+    </Box >
   )
 }
